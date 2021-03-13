@@ -6,27 +6,31 @@ import tkinter as tk
 # main functions
 def f(x, func_num):
     if func_num == 1:
-        return np.sin(x**2 - x + 1/3) + x/2
+        return x**3 + 3*x**2 - x + 10
     elif func_num == 2:
-        return np.cos(0.4*x**2 + 0.3*x) + 0.34
+        return np.sin(x)
     elif func_num == 3:
-        return 0
+        return 3**x - 5
     elif func_num == 4:
-        return 0
+        return np.cos(x) + x**3 - 19
 
 
 # defined functions  # TODO
 def bisection(a, b, epsilon, iterations, func_num):
     if f(a, func_num) * f(b, func_num) > 0:  # 01 02
-        return -2
+        print("Zalozone bledne a i b")
+        return -1
 
-    x0 = (float)(a + b) / 2  # 03
-    if np.abs(f(x0, func_num)) < epsilon:  # 06
-        return x0
-    if f(x0, func_num) * f(a, func_num) < 0:  # 07
-        b = x0
-    else:
-        a = x0
+    for i in range(iterations):
+        x0 = (float)(a + b) / 2  # 03
+        if np.abs(f(x0, func_num)) < epsilon:  # 06
+            return x0
+        if f(x0, func_num) * f(a, func_num) < 0:  # 07
+            b = x0
+        else:
+            a = x0
+
+    return x0
 
 def make_plot(min, max, point, func_num):
     x = np.arange(min, max, 0.05)
