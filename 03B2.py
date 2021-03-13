@@ -29,7 +29,7 @@ def click():
         else:
             tk.messagebox.showerror(message="Method range out of bounds")
 
-        exp.make_plot(0, 5, [3, 1], function.get())
+        exp.make_plot(0, 10, [3, 1], function.get())
 
 
 # zmienne
@@ -38,7 +38,7 @@ function = tk.IntVar(window, 1)
 X = 0.0
 eps = 0.0
 iters = 0
-granice = [0, 10]  # TODO chwilowo są na stałe
+granice = [-10, 10]  # TODO chwilowo są na stałe
 
 # gui
 app_bg = '#005348'
