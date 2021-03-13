@@ -21,10 +21,10 @@ def click():
         eps = float(epsilon.get())
         iters = int(iterations.get())
         if method.get() == 1:
-            # bisection()
+            exp.bisection(granice[0], granice[1], eps, iters, function.get())
             print("bisection")
         elif method.get() == 2:
-            # falsi()
+            # falsi()  # TODO
             print("falsi")
         else:
             tk.messagebox.showerror(message="Method range out of bounds")
@@ -38,6 +38,7 @@ function = tk.IntVar(window, 1)
 X = 0.0
 eps = 0.0
 iters = 0
+granice = [0, 10]  # TODO chwilowo są na stałe
 
 # gui
 app_bg = '#005348'
