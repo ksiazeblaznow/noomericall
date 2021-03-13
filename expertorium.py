@@ -21,7 +21,7 @@ def bisection(a, b, epsilon, iterations, func_num):
         return -2
 
     x0 = (float)(a + b) / 2  # 03
-    if np.abs(f(x0, func_num)) < epsY:  # 06
+    if np.abs(f(x0, func_num)) < epsilon:  # 06
         return x0
     if f(x0, func_num) * f(a, func_num) < 0:  # 07
         b = x0
