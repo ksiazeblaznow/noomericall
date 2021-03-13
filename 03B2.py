@@ -20,16 +20,19 @@ def click():
     else:
         eps = float(epsilon.get())
         iters = int(iterations.get())
+        x0 = 0
         if method.get() == 1:
             exp.bisection(granice[0], granice[1], eps, iters, function.get())
             print("bisection")
+            print(exp.bisection(granice[0], granice[1], eps, iters, function.get())) #miejsce zerowe metody bisekcji w konsoli, zeby widziec czy wgl to dziala
         elif method.get() == 2:
-            # falsi()  # TODO
-            print("falsi")
+            x0 = exp.falsi(granice[0], granice[1], eps, iters, function.get())
+            print("Regula Falsi:")
+            print(round(x0, 4)) #miejsce zerowe reguly Falsi w konsoli, zeby widziec czy wgl to dziala
         else:
             tk.messagebox.showerror(message="Method range out of bounds")
 
-        exp.make_plot(0, 5, [3, 1], function.get())
+        exp.make_plot(-10, 10, [x0, exp.f(x0, function.get())], function.get())
 
 
 # zmienne
@@ -38,7 +41,7 @@ function = tk.IntVar(window, 1)
 X = 0.0
 eps = 0.0
 iters = 0
-granice = [0, 10]  # TODO chwilowo są na stałe
+granice = [-10, 10]  # TODO chwilowo są na stałe
 
 # gui
 app_bg = '#005348'
