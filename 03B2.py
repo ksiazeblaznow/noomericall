@@ -54,7 +54,7 @@ label = tk.Label(window, bg=app_bg, fg="white",text="Fabryka miejsc zerowych", f
 functions = tk.Frame( window, bg=app_bg )  # choose function
 tk.Radiobutton(window, text = "x^3 + 3*x^2 - x + 10", variable = function, value = 1, indicator = 0, background = app_bg).pack(side=tk.LEFT, in_=functions, padx=10, pady=10)
 tk.Radiobutton(window, text = "sin(x)", variable = function, value = 2, indicator = 0, background = app_bg).pack(side=tk.LEFT, in_=functions, padx=10, pady=10)
-tk.Radiobutton(window, text = "3^x - 5", variable = function, value = 3, indicator = 0, background = app_bg).pack(side=tk.LEFT, in_=functions, padx=10, pady=10)
+tk.Radiobutton(window, text = "3^x - 30", variable = function, value = 3, indicator = 0, background = app_bg).pack(side=tk.LEFT, in_=functions, padx=10, pady=10)
 tk.Radiobutton(window, text = "cos(x) + x^3 - 19", variable = function, value = 4, indicator = 0, background = app_bg).pack(side=tk.LEFT, in_=functions, padx=10, pady=10)
 functions.pack()
 methods = tk.Frame( window, bg=app_bg )  # choose method

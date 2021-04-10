@@ -10,7 +10,7 @@ def f(x, func_num):
     elif func_num == 2:
         return np.sin(x)
     elif func_num == 3:
-        return 3**x - 5
+        return 3**x - 30
     elif func_num == 4:
         return np.cos(x) + x**3 - 19
 
@@ -46,8 +46,8 @@ def falsi(a, b, epsilon, iterations, func_num):
     if f(a, func_num) * f(b, func_num) >= 0: 
         print("Zalozono bledne a i b") 
         return -1
-      
-    c = a # Inicjuje wynik 
+
+    c = a # Inicjuje wynik
       
     for i in range(iterations): #Maksymalna ilosc iteracji
           
@@ -64,8 +64,11 @@ def falsi(a, b, epsilon, iterations, func_num):
         # Sprawdza i decyduje, czy powtorzyc wykonane wczesniej kroki
         elif f(c, func_num) * f(a, func_num) < 0: 
             b = c 
-        else: 
+        else:
             a = c
+
+        print(c)
+
     return c 
 
 
