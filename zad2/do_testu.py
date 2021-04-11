@@ -2,19 +2,18 @@ import numpy as np
 from icecream import ic
 
 def is_diagonal(m):
-    l = m.shape[0]
+    length = m.shape[0]
     d = 0
     o = 0
 
-    for i in range(l):
-        for j in range(l):
+    for i in range(length):
+        for j in range(length):
             if (i == j):
                 d += np.abs(m[i][i])
             else:
                 o += np.abs(m[i][j])
 
     return d > o
-
 
 
 def gauss_seidel(m, n, x):
@@ -31,20 +30,27 @@ def gauss_seidel(m, n, x):
 
     return x
 
-# data
-m = np.array( [[10, -5, 1],
-               [4, -7, 2],
-               [5, 1, 4]] )
+# read file
+matrix = np.loadtxt("input.txt", dtype='float64', delimiter=',')
 n = np.array([3, -4, 19])
 x = np.zeros(n.shape)
 
+# zmienne
+
+
 
 # code
-if not (is_diagonal(m)):
+if not (is_diagonal(matrix)):
     print('uwaga zjebana macierz')
 else:
     for _ in range(10):
-        x = gauss_seidel(m, n, x)
+        x = gauss_seidel(matrix, n, x)
 
-ic(m, n, x)
-print(is_diagonal(m))
+ic(matrix, n, x)
+print(is_diagonal(matrix))
+
+
+
+# wczytywanie z pliku               zrobione
+# wybór ilości równań (z min. 10)   
+# dwa warunki stopu do wyboru       iteracja lub epsilon jakis

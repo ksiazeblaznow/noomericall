@@ -44,7 +44,7 @@ def click():
 method = tk.IntVar(window, 1)
 function = tk.IntVar(window, 1)
 
-granice = [-10, 10]  # TODO chwilowo są na stałe
+granice = [-10, 10]  #TODO chwilowo są na stałe
 
 # gui
 app_bg = '#005348'
