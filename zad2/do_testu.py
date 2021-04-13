@@ -16,8 +16,11 @@ def is_diagonal(m):
     return d > o
 
 
-def gauss_seidel(m, n, x):
+def gauss_seidel(m, n, x, epsilon, xtmp):
     l = len(m)
+
+    # zapisuje poprzednia matryce zeby policzyc epsilon
+    xtmp = x
 
     for j in range(l):
         d = n[j]
@@ -28,6 +31,8 @@ def gauss_seidel(m, n, x):
         
         x[j] = d / m[j][j]
 
+    # if ( epsilon ):
+    ic( xtmp, x )
     return x
 
 # read file
@@ -43,8 +48,13 @@ x = np.zeros(n.shape)
 if not (is_diagonal(matrix)):
     print('uwaga zjebana macierz')
 else:
-    for _ in range(10):
-        x = gauss_seidel(matrix, n, x)
+    epsilon = 0.001
+    xtemp = [0,0,0]
+
+    for _ in range(2):
+        x = gauss_seidel(matrix, n, x, 0.01, xtemp)  # True jeżeli korzystamy z epsilon
+        ic(xtemp)
+
 
 ic(matrix, n, x)
 print(is_diagonal(matrix))
