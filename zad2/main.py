@@ -35,7 +35,7 @@ def is_diagonal(m):
             else:
                 o += np.abs(m[i][j])
 
-    return d > o
+    return d >= o
 
 def gauss_seidel(m, n, x):
     l = len(m)
