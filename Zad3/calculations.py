@@ -40,20 +40,6 @@ def get_nodes_values(nodes, function):
     return np.array(nodes_values)
 
 
-def lagrange_interpolation(x, nodes, nodes_values):  # x - położenie węzła, którego wartość chcemy obliczyć
-
-    y = 0
-    for i in range(len(nodes)):
-
-        value = 1
-        for j in range(len(nodes)):
-
-            if i != j:
-                value = value * ((x - nodes[j]) / (nodes[i] - nodes[j]))
-        y += value * nodes_values[i]
-    return y
-
-
 def divided_diff(nodes, nodes_values):  # ilorazy różnicowe
     coef = np.zeros([len(nodes_values), len(nodes_values)])
     coef[:, 0] = np.array(nodes_values)
@@ -72,7 +58,7 @@ def newton_interpolation(x, nodes, nodes_values):
     return p
 
 
-def get_all_results(formula_range, nodes_values, nodes, method):  # method- lagrange_interpolation lub newton_interpolation
+def get_all_results(formula_range, nodes_values, nodes, method): 
     x = np.linspace(formula_range[0], formula_range[1])
     y = []
     for elem in x:

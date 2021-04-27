@@ -1,13 +1,12 @@
 from matplotlib import pyplot as plt
 import numpy as np
 import calculations
-import sys
 
 
 def get_fun():
     in_number = ''
     while in_number not in list(map(str, range(1, 5))):
-        in_number = input('Prosze wybrac wzor funkcji \n '
+        in_number = input('Prosze wybrac wzor funkcji \n'
                           '1. 2 * x - 9 \n'
                           '2. 3 * x ** 3 - 5 \n'
                           '3. np.sin(x ** 2) - np.cos(x)  \n'
@@ -17,34 +16,15 @@ def get_fun():
 
 
 def get_range():
-    print('Prosze podac poczatek przedzialu')
+    print('Poczatek przedzialu:')
     a = input()
-    print('Prosze podac koniec przedzialu')
+    print('Koniec przedzialu')
     b = input()
     return float(a), float(b)
 
 
 def get_nodes_number():
-    return int(input('Prosze podac liczbe wezlow \n'))
-
-
-def get_unknowns(unknowns_number, formula_range):
-    unknowns = []
-    for i in range(unknowns_number):
-        users_in = input('Prosze podac wartosc wspolrzednej x punktu do obliczenia wartosci'
-                         ' jego wspolrzednej y za pomoca obu metod interpolacji ')
-        while not (users_in.isdigit()) and not (formula_range[1] >= float(users_in) >= formula_range[0]):
-            print('Prosze podac prawidlowa wartosc')
-            users_in = input()
-        unknowns.append(float(users_in))
-    return np.array(unknowns)
-
-
-def get_unknowns_number():
-    number = ''
-    while not number.isdigit():
-        number = input('Prosze podac liczbe poszukiwanych niewiadomych wartosci wielomianu dla danych x \n')
-    return int(number)
+    return int(input('Liczba wezlow: \n'))
 
 
 def menu():
@@ -57,7 +37,7 @@ def menu():
     else:
         nodes = get_nodes_file(formula_range)
         if not nodes:
-            print('Dane w pliku sa nieprawidlowe, zostana wylosowane')
+            print('Nieprawidlowe dane w pliku. Trwa losowanie')
             nodes_number = get_nodes_number()
             nodes = get_nodes_user(nodes_number, formula_range)
     checked_formula = formula_switcher(formula)
@@ -74,16 +54,11 @@ def formula_switcher(in_number):
     return switcher.get(in_number, 'invalid input')
 
 
-def unknowns_menu(formula_range):
-    unknowns_number = get_unknowns_number()
-    return get_unknowns(unknowns_number, formula_range)
-
-
 def nodes_choice():
     choice = ''
     while choice != '1' and choice != '2':
-        choice = input("Prosze wybrac: \n 1. Polozenia wezlow maja zostac wylosowane \n "
-                       "2. Poloznia wezlow maja zostac wczytane z pliku 'nodes.txt' \n")
+        choice = input("Wezly: \n 1. Losowanie polozenie wezlow \n "
+                       "2. Wczytaj polozenie wezlow z pliku nodes.txt \n")
     return choice
 
 
@@ -112,7 +87,7 @@ def get_function_graph(formula_range, formula):
     plt.plot(x, np.array(y), label='Wykres funkcji')
 
 
-def get_all_graphs(formula_range, formula, nodes, nodes_values, lagrange, newton):
+def get_all_graphs(formula_range, formula, nodes, nodes_values, newton):
     get_function_graph(formula_range, formula)
     plt.plot(newton[0], newton[1], '*', zorder=0, linewidth=4,
              label='Wykres wielomianu interpolacyjnego metody Newtona')
@@ -120,26 +95,10 @@ def get_all_graphs(formula_range, formula, nodes, nodes_values, lagrange, newton
     plt.xlabel('x')
     plt.ylabel('y')
     plt.grid()
-    plt.legend(bbox_to_anchor=(1.05, 1.0), loc='upper left')
+    plt.legend(bbox_to_anchor=(1.0, 1.0), loc='upper left')
     plt.savefig('wykres.png',
                 dpi=300,
                 format='png',
                 bbox_inches='tight')
     plt.show()
 
-
-def data_output(unknowns, nodes, formula, nodes_values):
-    print('Punkty podane przez użytkownika do obliczenoia dwoma metodami \n', unknowns)
-    newton = []
-    true_values = []
-    for x in unknowns:
-        newton.append(calculations.newton_interpolation(x, nodes, nodes_values))
-        true_values.append(calculations.get_fun_value(formula, x))
-    true_values = np.array(true_values)
-    newton = np.array(newton)
-    newton_errors = calculations.get_residuals(true_values, newton)
-    newton_sq_error = calculations.get_mse(newton_errors)
-    print('Prawidlowe wartosci dla danych niewiadomych \n', true_values)
-    print('Wyniki metody Newtona \n', newton)
-    print('Bledy metody Newtona \n', newton_errors)
-    print('Sredni blad kwadratowy metody Newtona \n', newton_sq_error)
