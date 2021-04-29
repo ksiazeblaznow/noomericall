@@ -4,7 +4,7 @@ import numpy as np
 def linear_fun(x):
     return 2 * x - 9
 
-
+# np.sqrt(x * x + 0.01)
 def cubic_fun(x):
     return 3 * x ** 3 - 5
 

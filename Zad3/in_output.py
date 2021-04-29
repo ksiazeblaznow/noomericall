@@ -8,7 +8,7 @@ def get_fun():
     while in_number not in list(map(str, range(1, 5))):
         in_number = input('Prosze wybrac wzor funkcji \n'
                           '1. 2 * x - 9 \n'
-                          '2. 3 * x ** 3 - 5 \n'
+                          '2. np.sqrt(x * x + 0.01) \n'
                           '3. np.sin(x ** 2) - np.cos(x)  \n'
                           '4. 5*np.absolute(np.sin(x)-2) \n'
                           '')
@@ -46,8 +46,8 @@ def menu():
 
 def formula_switcher(in_number):
     switcher = {
-        '1': '2 * x - 9',
-        '2': '3 * x ** 3 - 5',
+        '1': '2 * x - 2',
+        '2': 'np.sqrt(x * x + 0.01)',
         '3': 'np.sin(x ** 2) - np.cos(x)',
         '4': '5*np.absolute(np.sin(x)-2)'
     }

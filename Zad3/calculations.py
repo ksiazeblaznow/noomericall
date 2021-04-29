@@ -23,7 +23,7 @@ def get_sub_fun_value(fun, x):
 
 
 def get_fun_value(function, x):
-    functions = ['np.sin', 'np.cos', 'np.tan', 'np.absolute(']
+    functions = ['np.sin', 'np.cos', 'np.tan', 'np.absolute(', 'np.sqrt(']
     if any(elem in function for elem in functions):
         value = get_sub_fun_value(function, x)
     else:
