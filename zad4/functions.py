@@ -4,21 +4,36 @@ import numpy as np
 # f     : wzór funkcji
 # a, b  : granice całkowania [a,b]
 # N     : ilość interwałów (liczba parzysta)
-def simpson(f,a,b,N=50):
+def simpson(f,a,b,N=1000, epsilon=0.01):
 
-    if N % 2 == 1:
-        raise ValueError("N must be an even integer.")
-    dx = (b-a)/N
-    x = np.linspace(a,b,N+1)
-    y = f(x)
-    S = dx/3 * np.sum(y[0:-1:2] + 4*y[1::2] + y[2::2])
-    return S
+    n = 2
+    lastS = 0.0
+    firstIter = True
+    
+    while n < N:
+        dx = (b-a) / n
+        x = np.linspace(a,b,n+1)
+        y = f(x)
+        S = dx/3 * np.sum(y[0:-1:2] + 4*y[1::2] + y[2::2])
+        
+
+        if not firstIter:
+            if lastS - S < epsilon:
+                return S, int(n/2)
+        lastS = S
+        n += 2
+        firstIter = False
+
+        print('lastS-S= ', lastS, S)
+        
+    return S, int(n/2)
 
 # wielomian Legendre'a
-def legendre(n, x): 
+def legendre(n, x):
     if(n == 0):
         return 1 # P0 = 1
     elif(n == 1):
         return x # P1 = x
     else:
-        return (((2 * n)-1) * x * legendre(n-1, x)-(n-1) * legendre(n-2, x)) / float(n)
+        return ( ((2 * n)-1) * x * legendre(n-1, x)-(n-1) * legendre(n-2, x)) / float(n)
+
