@@ -3,7 +3,6 @@ import numpy as np
 
 # f     : wzór funkcji
 # a, b  : granice całkowania [a,b]
-# N     : ilość interwałów (liczba parzysta)
 def simpson(f,a,b,epsilon=0.01):
 
     nn=1000
