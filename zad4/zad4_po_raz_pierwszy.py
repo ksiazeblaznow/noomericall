@@ -25,10 +25,10 @@ while method < 1 or method > 2:
 func = 0
 while func < 1 or func > 5:
     print('Która metoda?')
-    print('1. x / np.sqrt(9 + x**4)')
+    print('1. x / sqrt(9 + x**4)')
     print('2. 3*x**2')
-    print('3. np.abs(2*x)')
-    print('4. np.sin(x)')
+    print('3. abs(2*x)')
+    print('4. sin(x)')
     print('5. 2*x - 7')
     func = int(input())
 
