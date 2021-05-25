@@ -1,12 +1,8 @@
-from funkcje import wartosc_funkcji
+from funkcje import func
 
 
+# wspolczynniki arbitralnie wyznaczone, wielomiany Legendre'a
 def wspolczynniki(liczba_wezlow, numer_wezla):
-    """
-    :param liczba_wezlow: liczba węzłów (int)
-    :param numer_wezla: numer węzła (int)
-    :return: para liczb: (wartość w węźle, waga)
-    """
     dane = (
         ((- 0.577350, 1), (0.577350, 1)),
         ((- 0.774597, 5 / 9), (0, 8 / 9), (0.774597, 5 / 9)),
@@ -16,83 +12,65 @@ def wspolczynniki(liczba_wezlow, numer_wezla):
     return dane[liczba_wezlow - 2][numer_wezla]
 
 
-def funkcja_bazowa(k, x):
-    """
-    :param k: stopień wielomianu (int)
-    :param x: argument funkcji (float)
-    :return: wartość funkcji bazowej Legendre'a dla x stopnia k
-    """
+# stopień wielomianu, argument funkcji
+# zwraca wartość funkcji bazowej Legendre'a dla x stopnia k
+def base_func(degree, x):
     p = [1, x]
-    for n in range(2, k + 1):
+    for n in range(2, degree + 1):
         p.append(((2 * (n - 1) + 1) / n * x * p[n - 1] - (n - 1) / n * p[n - 2]))
-    return p[k]
+    return p[degree]
 
 
-def gauss_licznik(wybor_funkcji, liczba_wezlow, k):
-    """
-    Obliczanie całki występującej we wzorze na współczynnik wielomianu aproksymującego w liczniku
-    :param wybor_funkcji: wybór dostępnej funkcji (String)
-    :param liczba_wezlow: liczba węzłów (int)
-    :param k: stopień wielomianu aproksymującego (int)
-    :return: wartość kwadratury w liczniku
-    """
+# Liczy całkę
+# func_choice: wybór dostępnej funkcji (String)
+# liczba_wezlow: liczba węzłów (int)
+# k: stopień wielomianu aproksymującego (int)
+# zwraca wartość kwadratury w liczniku
+def gauss_licznik(func_choice, liczba_wezlow, k):
     calka = 0
     for i in range(liczba_wezlow):
         x = (wspolczynniki(liczba_wezlow, i)[0])
         w = (wspolczynniki(liczba_wezlow, i)[1])
-        calka += w * wartosc_funkcji(x, wybor_funkcji) * funkcja_bazowa(k, x)
+        calka += w * func(x, func_choice) * base_func(k, x)
     return calka
 
 
-def gauss_blad(wybor_funkcji, k, tab_wsp, liczba_wezlow):
-    """
-    :param wybor_funkcji: -//-
-    :param k: stopień wielomianu aproksymującego (int)
-    :param tab_wsp: lista współczynników wielomianu aproksymującego
-    :param liczba_wezlow: liczba węzłów kwadratury (int)
-    :return: wartość całki oznaczająca błąd aproksymacji
-    """
+# func_choice: wybór dostępnej funkcji (String)
+# k: stopień wielomianu aproksymującego (int)
+# tab_wsp: lista współczynników wielomianu aproksymującego
+# liczba_wezlow: liczba węzłów kwadratury (int)
+# zwraca wartość całki oznaczająca błąd aproksymacji
+def gauss_blad(func_choice, k, tab_wsp, liczba_wezlow):
     calka = 0
     for i in range(liczba_wezlow):
         x = (wspolczynniki(liczba_wezlow, i)[0])
         # x = - 1 + 2 * (x - a)/(b - a)
         w = (wspolczynniki(liczba_wezlow, i)[1])
-        calka += w * (wartosc_funkcji(x, wybor_funkcji) - wart_wielomian(k, x, tab_wsp))**2
+        calka += w * (func(x, func_choice) - wart_wielomian(k, x, tab_wsp))**2
     return calka
 
-
-def wsp_apro(wybor_funkcji, liczba_wezlow, k):
-    """
-    :param wybor_funkcji: -//-
-    :param liczba_wezlow: -//-
-    :param k: -//-
-    :return: wspołczynnik wielomianu aproksymujacego
-    """
-    wsp = (2 * k + 1) / 2 * gauss_licznik(wybor_funkcji, liczba_wezlow, k)
+# func_choice: wybór dostępnej funkcji (String)
+# zwraca wspołczynnik wielomianu aproksymujacego
+def wsp_apro(func_choice, liczba_wezlow, k):
+    wsp = (2 * k + 1) / 2 * gauss_licznik(func_choice, liczba_wezlow, k)
     return wsp
 
 
-def wsp_wielomian(wybor_funkcji, liczba_wezlow, k):
-    """
-    :param wybor_funkcji: -//-
-    :param liczba_wezlow: -//-
-    :param k: -//-
-    :return: lista wspołczynników wielomianu aproksymującego
-    """
+# :param func_choice: wybór dostępnej funkcji (String)
+# zwraca lista wspołczynników wielomianu aproksymującego
+def wsp_wielomian(func_choice, liczba_wezlow, k):
     wielomian = []
     for i in range(k + 1):
-        wielomian.append(wsp_apro(wybor_funkcji, liczba_wezlow, i))
+        wielomian.append(wsp_apro(func_choice, liczba_wezlow, i))
     return wielomian
 
 
+# :param k: -//-
+# :param x: -//-
+# :param tab_wsp: -//-
+# zwraca wartość wielomianu aproksymującego dla argumentu x
 def wart_wielomian(k, x, tab_wsp):
-    """
-    :param k: -//-
-    :param x: -//-
-    :param tab_wsp: -//-
-    :return: wartość wielomianu aproksymującego dla argumentu x
-    """
     poly = 0
     for i in range(k + 1):
-        poly += tab_wsp[i] * funkcja_bazowa(i, x)
+        poly += tab_wsp[i] * base_func(i, x)
     return poly
