@@ -1,0 +1,30 @@
+Wielomiany Legendre'a
+
+
+Funkcje:
+- ax + b
+- |x|
+- Wielomian
+- Trygonometryczna
+- Ich złożenie
+
+
+Loop użytkownika:
+- Wybiera funkcję
+- Przedział
+- Stopień wielomianu
+- Parametry (np. ilość węzłów)
+- * Określ pożądany błąd aproksymacji *
++ Wykorzystaj całkowanie z zad4
+
+
+Loop programu:
+- Zbiera dane
+- Aproksymuje
+- ( Horner )
+- Rysuje wykres (oryginalny i aproksymowany)
+- Oblicz błąd aproksymacji
+- * Zapisuje współczynniki przy iteracji do schematu Hornera *
+
+
+* na ocenę 5 *
